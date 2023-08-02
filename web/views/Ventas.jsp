@@ -141,283 +141,278 @@
                                    onclick="agregarDetalle()">
                             <input class="btn btn-primary" type="submit" name="accion" onclick="generarPDF()" value="guardar">
                         </div>
+                    </div>  
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table text-center h-100 py-5" id="detalle-table">
+                            <!-- ... -->
+                        </table>
                     </div>
+                </div>
             </div>
-        </form>
-    </div>
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body p-2">
-                <div class="table-responsive">
-                    <table class="table text-center h-100 py-5" id="detalle-table">
-                        <!-- ... -->
-                    </table>
+        </div>
+        <!-- Agregamos el elemento para mostrar el total -->
+        <div class="col-lg-12 mt-3">
+            <h4 class="text-center">Total a pagar: <span id="totalPagar">0.00</span></h4>
+        </div>
+
+    </main>
+    <div class="modal fade" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content modal-sm">
+                <div class="modal-body">
+                    <center>
+                        <h3 class="modal-title text-primary"><b>PRODUCTOS</b></h3>
+                    </center>
+                    <div class="table-responsive">
+                        <table id="example3" class="display table header-border table-hover verticle-middle">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Producto</th>
+                                    <th class="text-center">P.V.P</th>
+                                    <th class="text-center">Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ============ INICIO DE LA CARD PRODUCTO ============ -->
+                                <%
+                                  ProductoDao daoProd = new ProductoDao();
+                                  List<producto> listProd = daoProd.getAll();
+                                  Iterator<producto> iterProd = listProd.iterator();
+                                  producto prod = null;
+                                  while (iterProd.hasNext()) {
+                                    prod = iterProd.next();
+                                %>
+                                <tr onclick="selectProduct(this)">
+                                    <td class="text-center text-muted"><%= prod.getIdProducto()%></td>
+                                    <td class="text-center text-muted"><%= prod.getProNombre()%></td>
+                                    <td class="text-center text-muted"><%= prod.getProPrecio()%></td>
+                                    <td class="text-center text-muted"><%= prod.getProStock()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Agregamos el elemento para mostrar el total -->
-    <div class="col-lg-12 mt-3">
-        <h4 class="text-center">Total a pagar: <span id="totalPagar">0.00</span></h4>
-    </div>
-
-</main>
-<div class="modal fade" id="exampleModalCenter">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content modal-sm">
-            <div class="modal-body">
-                <center>
-                    <h3 class="modal-title text-primary"><b>PRODUCTOS</b></h3>
-                </center>
-                <div class="table-responsive">
-                    <table id="example3" class="display table header-border table-hover verticle-middle">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Producto</th>
-                                <th class="text-center">P.V.P</th>
-                                <th class="text-center">Stock</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- ============ INICIO DE LA CARD PRODUCTO ============ -->
-                            <%
-                              ProductoDao daoProd = new ProductoDao();
-                              List<producto> listProd = daoProd.getAll();
-                              Iterator<producto> iterProd = listProd.iterator();
-                              producto prod = null;
-                              while (iterProd.hasNext()) {
-                                prod = iterProd.next();
-                            %>
-                            <tr onclick="selectProduct(this)">
-                                <td class="text-center text-muted"><%= prod.getIdProducto()%></td>
-                                <td class="text-center text-muted"><%= prod.getProNombre()%></td>
-                                <td class="text-center text-muted"><%= prod.getProPrecio()%></td>
-                                <td class="text-center text-muted"><%= prod.getProStock()%></td>
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
+    <div class="modal fade" id="exampleModalCenterCliente">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content modal-sm">
+                <div class="modal-body">
+                    <center>
+                        <h3 class="modal-title text-primary"><b>CLIENTES</b></h3>
+                    </center>
+                    <div class="table-responsive">
+                        <table id="example" class="display table header-border verticle-middle" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Id</th>
+                                    <th class="text-center">Nombres</th>
+                                    <th class="text-center">Apellidos</th>
+                                    <th class="text-center">Cedula</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Telefono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                  ClienteDao daoCh = new ClienteDao();
+                                  List<cliente> listCh = daoCh.getAll();
+                                  Iterator<cliente> iterCh = listCh.iterator();
+                                  cliente ch = null;
+                                  while (iterCh.hasNext()) {
+                                    ch = iterCh.next();
+                                %>
+                                <tr onclick="selectClient(this)">
+                                    <td class="text-center text-muted"><%= ch.getIdCliente()%></td>
+                                    <td class="text-center text-muted"><%= ch.getCliNombre()%></td>
+                                    <td class="text-center text-muted"><%= ch.getCliApellido()%></td>
+                                    <td class="text-center text-muted"><%= ch.getCliCedula()%></td>
+                                    <td class="text-center text-muted"><%= ch.getCliEmail()%></td>
+                                    <td class="text-center text-muted"><%= ch.getCliTelefono()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="exampleModalCenterCliente">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content modal-sm">
-            <div class="modal-body">
-                <center>
-                    <h3 class="modal-title text-primary"><b>CLIENTES</b></h3>
-                </center>
-                <div class="table-responsive">
-                    <table id="example" class="display table header-border verticle-middle" style="min-width: 845px">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Id</th>
-                                <th class="text-center">Nombres</th>
-                                <th class="text-center">Apellidos</th>
-                                <th class="text-center">Cedula</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Telefono</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                              ClienteDao daoCh = new ClienteDao();
-                              List<cliente> listCh = daoCh.getAll();
-                              Iterator<cliente> iterCh = listCh.iterator();
-                              cliente ch = null;
-                              while (iterCh.hasNext()) {
-                                ch = iterCh.next();
-                            %>
-                            <tr onclick="selectClient(this)">
-                                <td class="text-center text-muted"><%= ch.getIdCliente()%></td>
-                                <td class="text-center text-muted"><%= ch.getCliNombre()%></td>
-                                <td class="text-center text-muted"><%= ch.getCliApellido()%></td>
-                                <td class="text-center text-muted"><%= ch.getCliCedula()%></td>
-                                <td class="text-center text-muted"><%= ch.getCliEmail()%></td>
-                                <td class="text-center text-muted"><%= ch.getCliTelefono()%></td>
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-    <div class="copyright">
-        &copy; Copyright <strong><span>Papeleria</span></strong>. Todos los derechos reservados
-    </div>
-</footer>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-<!-- PDFS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <!-- PDFS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
 
-<script>
-                                $(document).ready(function () {
-                                    $('#example').DataTable({
-                                        dom: 'Bfrtip',
-                                        buttons: [
-                                            'copy', 'csv', 'excel', 'pdf', 'print'
-                                        ]
-                                    });
-                                });
-
-                                let selectedClient = null;
-                                let selectedProduct = null;
-
-                                function selectClient(row) {
-                                    const cells = row.cells;
-                                    selectedClient = {
-                                        id: cells[0].innerText,
-                                        name: cells[1].innerText + " " + cells[2].innerText,
-                                    };
-                                    document.getElementById('lblNombreCli').value = selectedClient.name;
-                                    document.getElementById('fkCliente').value = selectedClient.id;
-                                }
-
-                                function selectProduct(row) {
-                                    const cells = row.cells;
-                                    selectedProduct = {
-                                        id: cells[0].innerText,
-                                        name: cells[1].innerText,
-                                        price: parseFloat(cells[2].innerText),
-                                        stock: parseInt(cells[3].innerText),
-                                    };
-                                    document.getElementById('lblNombreProd').value = selectedProduct.name;
-                                    document.getElementById('fkProducto').value = selectedProduct.id;
-                                }
-
-                                function agregarDetalle() {
-                                    const cantidadSolicitada = parseInt(document.getElementById('lbl-cantidad').value);
-                                    if (!selectedClient) {
-                                        alert('Debes seleccionar un cliente.');
-                                        return;
-                                    }
-                                    if (!selectedProduct) {
-                                        alert('Debes seleccionar un producto.');
-                                        return;
-                                    }
-                                    if (isNaN(cantidadSolicitada) || cantidadSolicitada <= 0) {
-                                        alert('La cantidad solicitada debe ser un número mayor a cero.');
-                                        return;
-                                    }
-                                    if (cantidadSolicitada > selectedProduct.stock) {
-                                        alert('La cantidad solicitada supera el stock disponible.');
-                                        return;
-                                    }
-
-                                    const table = document.getElementById('detalle-table');
-                                    const row = table.insertRow(-1);
-                                    const cellId = row.insertCell(0);
-                                    const cellProduct = row.insertCell(1);
-                                    const cellCode = row.insertCell(2);
-                                    const cellPVP = row.insertCell(3);
-                                    const cellTotal = row.insertCell(4);
-
-                                    cellId.innerText = selectedProduct.id;
-                                    cellProduct.innerText = selectedProduct.name;
-                                    cellCode.innerText = selectedProduct.id;
-                                    cellPVP.innerText = selectedProduct.price.toFixed(2);
-                                    cellTotal.innerText = (selectedProduct.price * cantidadSolicitada).toFixed(2);
-                                    document.getElementById("detTotal").value = (selectedProduct.price * cantidadSolicitada).toFixed(2);
-
-                                    // Actualizamos el total a pagar
-                                    calcularTotalPagar();
-                                }
-
-                                function calcularTotalPagar() {
-                                    let totalPagar = 0;
-                                    const rows = document.querySelectorAll("#detalle-table tbody tr");
-                                    rows.forEach(row => {
-                                        const cellTotal = row.cells[4];
-                                        const total = parseFloat(cellTotal.innerText);
-                                        totalPagar += total;
+    <script>
+                                    $(document).ready(function () {
+                                        $('#example').DataTable({
+                                            dom: 'Bfrtip',
+                                            buttons: [
+                                                'copy', 'csv', 'excel', 'pdf', 'print'
+                                            ]
+                                        });
                                     });
 
-                                    // Mostramos el total a pagar en el elemento con el id "totalPagar"
-                                    document.getElementById("totalPagar").innerText = totalPagar.toFixed(2);
-                                    document.getElementById("venTotal").value = totalPagar.toFixed(2);
-                                }
-</script>
+                                    let selectedClient = null;
+                                    let selectedProduct = null;
 
-<script>
+                                    function selectClient(row) {
+                                        const cells = row.cells;
+                                        selectedClient = {
+                                            id: cells[0].innerText,
+                                            name: cells[1].innerText + " " + cells[2].innerText,
+                                        };
+                                        document.getElementById('lblNombreCli').value = selectedClient.name;
+                                        document.getElementById('fkCliente').value = selectedClient.id;
+                                    }
 
-    function generarPDF() {
-        const totalPagar = document.getElementById('totalPagar').innerText;
-        const docDefinition = {
-            content: [
-                {text: 'FACTURA', style: 'header'},
-                {text: 'Cliente:', style: 'subheader'},
-                {text: selectedClient ? selectedClient.name : 'Consumidor final', style: 'content'},
-                {text: 'Detalles de la compra:', style: 'subheader'},
-                generarTablaDetalles(),
-                {text: "Total a Pagar: " + document.getElementById('totalPagar').innerText, style: 'content'}
-            ],
-            styles: {
-                header: {
-                    fontSize: 18,
-                    bold: true,
-                    alignment: 'center',
-                    margin: [0, 0, 0, 10]
-                },
-                subheader: {
-                    fontSize: 14,
-                    bold: true,
-                    margin: [0, 10, 0, 5]
-                },
-                content: {
-                    fontSize: 12,
-                    margin: [0, 0, 0, 10]
+                                    function selectProduct(row) {
+                                        const cells = row.cells;
+                                        selectedProduct = {
+                                            id: cells[0].innerText,
+                                            name: cells[1].innerText,
+                                            price: parseFloat(cells[2].innerText),
+                                            stock: parseInt(cells[3].innerText),
+                                        };
+                                        document.getElementById('lblNombreProd').value = selectedProduct.name;
+                                        document.getElementById('fkProducto').value = selectedProduct.id;
+                                    }
+
+                                    function agregarDetalle() {
+                                        const cantidadSolicitada = parseInt(document.getElementById('lbl-cantidad').value);
+                                        if (!selectedClient) {
+                                            alert('Debes seleccionar un cliente.');
+                                            return;
+                                        }
+                                        if (!selectedProduct) {
+                                            alert('Debes seleccionar un producto.');
+                                            return;
+                                        }
+                                        if (isNaN(cantidadSolicitada) || cantidadSolicitada <= 0) {
+                                            alert('La cantidad solicitada debe ser un número mayor a cero.');
+                                            return;
+                                        }
+                                        if (cantidadSolicitada > selectedProduct.stock) {
+                                            alert('La cantidad solicitada supera el stock disponible.');
+                                            return;
+                                        }
+
+                                        const table = document.getElementById('detalle-table');
+                                        const row = table.insertRow(-1);
+                                        const cellId = row.insertCell(0);
+                                        const cellProduct = row.insertCell(1);
+                                        const cellCode = row.insertCell(2);
+                                        const cellPVP = row.insertCell(3);
+                                        const cellTotal = row.insertCell(4);
+
+                                        cellId.innerText = selectedProduct.id;
+                                        cellProduct.innerText = selectedProduct.name;
+                                        cellCode.innerText = selectedProduct.id;
+                                        cellPVP.innerText = selectedProduct.price.toFixed(2);
+                                        cellTotal.innerText = (selectedProduct.price * cantidadSolicitada).toFixed(2);
+                                        document.getElementById("detTotal").value = (selectedProduct.price * cantidadSolicitada).toFixed(2);
+
+                                        // Actualizamos el total a pagar
+                                        calcularTotalPagar();
+                                    }
+
+                                    function calcularTotalPagar() {
+                                        let totalPagar = 0;
+                                        const rows = document.querySelectorAll("#detalle-table tbody tr");
+                                        rows.forEach(row => {
+                                            const cellTotal = row.cells[4];
+                                            const total = parseFloat(cellTotal.innerText);
+                                            totalPagar += total;
+                                        });
+
+                                        // Mostramos el total a pagar en el elemento con el id "totalPagar"
+                                        document.getElementById("totalPagar").innerText = totalPagar.toFixed(2);
+                                        document.getElementById("venTotal").value = totalPagar.toFixed(2);
+                                    }
+    </script>
+
+    <script>
+
+        function generarPDF() {
+            const totalPagar = document.getElementById('totalPagar').innerText;
+            const docDefinition = {
+                content: [
+                    {text: 'FACTURA', style: 'header'},
+                    {text: 'Cliente:', style: 'subheader'},
+                    {text: selectedClient ? selectedClient.name : 'Consumidor final', style: 'content'},
+                    {text: 'Detalles de la compra:', style: 'subheader'},
+                    generarTablaDetalles(),
+                    {text: "Total a Pagar: " + document.getElementById('totalPagar').innerText, style: 'content'}
+                ],
+                styles: {
+                    header: {
+                        fontSize: 18,
+                        bold: true,
+                        alignment: 'center',
+                        margin: [0, 0, 0, 10]
+                    },
+                    subheader: {
+                        fontSize: 14,
+                        bold: true,
+                        margin: [0, 10, 0, 5]
+                    },
+                    content: {
+                        fontSize: 12,
+                        margin: [0, 0, 0, 10]
+                    }
                 }
-            }
-        };
+            };
 
-        // Generar el PDF
-        pdfMake.createPdf(docDefinition).download('factura.pdf');
-    }
+            // Generar el PDF
+            pdfMake.createPdf(docDefinition).download('factura.pdf');
+        }
 
 
-    function generarTablaDetalles() {
-        const rows = document.querySelectorAll("#detalle-table tbody tr");
-        const detalleData = [['Producto', 'Código', 'P.V.P', 'Total']];
-        rows.forEach(row => {
-            const cells = row.cells;
-            const rowData = [
-                cells[1].innerText,
-                cells[2].innerText,
-                cells[3].innerText, // Aquí se muestra el P.V.P sin el signo "$"
-                cells[4].innerText // Aquí se muestra el Total sin el signo "$"
-            ];
-            detalleData.push(rowData);
-        });
+        function generarTablaDetalles() {
+            const rows = document.querySelectorAll("#detalle-table tbody tr");
+            const detalleData = [['Producto', 'Código', 'P.V.P', 'Total']];
+            rows.forEach(row => {
+                const cells = row.cells;
+                const rowData = [
+                    cells[1].innerText,
+                    cells[2].innerText,
+                    cells[3].innerText, // Aquí se muestra el P.V.P sin el signo "$"
+                    cells[4].innerText // Aquí se muestra el Total sin el signo "$"
+                ];
+                detalleData.push(rowData);
+            });
 
-        return {
-            table: {
-                headerRows: 1,
-                widths: ['*', '*', '*', '*'],
-                body: detalleData
-            }
-        };
-    }
-</script>
+            return {
+                table: {
+                    headerRows: 1,
+                    widths: ['*', '*', '*', '*'],
+                    body: detalleData
+                }
+            };
+        }
+    </script>
 
 </body>
 
