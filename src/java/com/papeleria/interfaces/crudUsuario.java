@@ -15,4 +15,11 @@ public interface crudUsuario {
 
     String deleteById(Integer id);
 
+    //Login
+    Integer getIdUsuario(String USU_USUARIO);
+
+    String getPassword(int ID_USUARIO);
+
+    Integer getAttempts(int ID_USUARIO);
+
 }

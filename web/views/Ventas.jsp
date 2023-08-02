@@ -113,6 +113,11 @@
                             </div>
                         </div>
                         <div class="col-sm-6 m-b30">
+                            <label class="form-label">Codigo venta</label>
+                            <input type="text" id="txtCodVenta" class="form-control" name="txtCodVenta" value="${codVenta}">
+                            <input type="hidden" id="txtIdVenta" class="form-control" name="txtIdVenta" value="${idVenta}">
+                        </div>
+                        <div class="col-sm-6 m-b30">
                             <label class="form-label">Producto</label>
                             <div class="input-group mb-3">
                                 <input type="text" name="fkProducto" class="form-control" id="lblNombreProd">
@@ -120,8 +125,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6 m-b30">
                             <label class="form-label">Cantidad</label>
                             <input type="number" id="lbl-cantidad" class="form-control" name="txtCantidad">
@@ -150,7 +153,7 @@
                 <h4 class="text-center">Total a pagar: <span id="totalPagar">0.00</span></h4>
             </div>
             <div class="col-lg-12 mt-3">
-                <button class="btn btn-primary" onclick="generarPDF()">Guardar PDF</button>
+                <button class="btn btn-primary" onclick="generarPDF()">Guardar</button>
             </div>
         </main>
         <div class="modal fade" id="exampleModalCenter">
@@ -353,7 +356,7 @@
                     content: [
                         {text: 'FACTURA', style: 'header'},
                         {text: 'Cliente:', style: 'subheader'},
-                        {text: selectedClient ? selectedClient.name : 'No se ha seleccionado un cliente', style: 'content'},
+                        {text: selectedClient ? selectedClient.name : 'Consumidor final', style: 'content'},
                         {text: 'Detalles de la compra:', style: 'subheader'},
                         generarTablaDetalles(),
                         {text: "Total a Pagar: " + document.getElementById('totalPagar').innerText, style: 'content'}

@@ -24,6 +24,10 @@
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>com.papeleria.controller.CerrarSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VentaTotal</servlet-name>
+        <servlet-class>com.papeleria.controller.VentaTotal</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,5 +51,9 @@
     <servlet-mapping>
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/CerrarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VentaTotal</servlet-name>
+        <url-pattern>/VentaTotal</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -70,6 +70,22 @@ public class VentaDao implements crudVenta {
         return venta;
     }
 
+    public Integer getLastId() {
+        int numero = 0;
+        try {
+            con = (Connection) cn.getConexion();
+            cs = con.prepareCall("CALL obtenerUltimoID()");
+            rs = cs.executeQuery();
+            while (rs.next()) {
+                numero = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("No hay id: " + ex.getMessage());
+            return 0;
+        }
+        return numero;
+    }
+
     @Override
     public String add(venta ven) {
         try {

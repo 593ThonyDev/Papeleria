@@ -116,7 +116,7 @@
                                 <div class="example">
                                     <p class="mb-1 text-primary">Clave</p>
                                     <input type="password" class="form-control" required="true" name="usuClave" value="<%= cli.getUsuClave()%>">
-                                </div>
+                                </div> 
                             </div>                                            
                         </div>                                                                                                                                                                                                                                           
                     </div>

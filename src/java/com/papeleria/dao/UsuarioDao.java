@@ -35,6 +35,7 @@ public class UsuarioDao implements crudUsuario {
     String usuClave;
 
     /* =================== LOGIN =================== */
+    @Override
     public Integer getIdUsuario(String USU_USUARIO) {
         try {
             idUsuario = 0;
@@ -52,6 +53,7 @@ public class UsuarioDao implements crudUsuario {
         return idUsuario;
     }
 
+    @Override
     public String getPassword(int ID_USUARIO) {
         try {
             con = (Connection) cn.getConexion();
@@ -67,6 +69,7 @@ public class UsuarioDao implements crudUsuario {
         return usuClave;
     }
 
+    @Override
     public Integer getAttempts(int ID_USUARIO) {
         try {
             con = (Connection) cn.getConexion();
@@ -79,7 +82,6 @@ public class UsuarioDao implements crudUsuario {
         } catch (Exception e) {
             System.out.println("USU_ESTADO no encontrado: " + e);
         }
-        System.out.println(usuIntento);
         return usuIntento;
     }
 

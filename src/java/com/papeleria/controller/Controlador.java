@@ -1,10 +1,12 @@
 package com.papeleria.controller;
 
+import com.papeleria.dao.VentaDao;
 import com.papeleria.model.usuario;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.util.UUID;
 
 public class Controlador extends HttpServlet {
 
@@ -13,19 +15,11 @@ public class Controlador extends HttpServlet {
     String CLIENTES = "views/Clientes.jsp";
     String PRODUCTOS = "views/Productos.jsp";
     String USUARIOS = "views/Usuarios.jsp";
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        usuario usu = (usuario) session.getAttribute("usuario");
-        if (usu == null) {
-            request.getRequestDispatcher(LOGIN).forward(request, response);
-        }
-    }
+    String acceso = "";
+    VentaDao dao = new VentaDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         String action = request.getParameter("p");
-        String acceso = "";
+        String page = request.getParameter("p");
         //========================================================================================== GLOBALES
         HttpSession session = request.getSession();
         usuario usu = (usuario) session.getAttribute("usuario");
@@ -34,8 +28,11 @@ public class Controlador extends HttpServlet {
             request.setAttribute("errorSesion", "Debes iniciar sesion, para acceder al contenido!!");
             request.getRequestDispatcher(LOGIN).forward(request, response);
         } else {
-            switch (action) {
+            switch (page) {
                 case "ventas":
+                    UUID uuid = UUID.randomUUID();
+                    request.setAttribute("codVenta",uuid.toString());
+                    request.setAttribute("idVenta",dao.getLastId()+1);
                     acceso = VENTA;
                     break;
                 case "clientes":
