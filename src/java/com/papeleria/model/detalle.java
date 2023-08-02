@@ -13,21 +13,21 @@ public class detalle extends venta {
     private Integer detCantidad;
     private Double detTotal;
 
-    public detalle(Integer idDetalle, Integer fkVenta, Integer fkProducto, String proNombreDet, String proCodigoDet, Integer venCantidad, Double venTotal) {
+    public detalle(Integer idDetalle, Integer fkVenta, Integer fkProducto, String proNombreDet, String proCodigoDet, Integer detCantidad, Double detTotal) {
         this.idDetalle = idDetalle;
         this.fkVenta = fkVenta;
         this.fkProducto = fkProducto;
         this.proNombreDet = proNombreDet;
         this.proCodigoDet = proCodigoDet;
-        this.detCantidad = venCantidad;
-        this.detTotal = venTotal;
+        this.detCantidad = detCantidad;
+        this.detTotal = detTotal;
     }
 
-    public detalle(Integer fkVenta, Integer fkProducto, Integer venCantidad, Double venTotal) {
+    public detalle(Integer fkVenta, Integer fkProducto, Integer detCantidad, Double detTotal) {
         this.fkVenta = fkVenta;
         this.fkProducto = fkProducto;
-        this.detCantidad = venCantidad;
-        this.detTotal = venTotal;
+        this.detCantidad = detCantidad;
+        this.detTotal = detTotal;
     }
 
     public Integer getIdDetalle() {
@@ -58,8 +58,8 @@ public class detalle extends venta {
         return detCantidad;
     }
 
-    public void setDetCantidad(Integer venCantidad) {
-        this.detCantidad = venCantidad;
+    public void setDetCantidad(Integer detCantidad) {
+        this.detCantidad = detCantidad;
     }
 
     public Double getDetTotal() {
@@ -92,8 +92,8 @@ public class detalle extends venta {
                 + "idDetalle=" + idDetalle + "\n"
                 + ", fkVenta=" + fkVenta + "\n"
                 + ", fkProducto=" + fkProducto + "\n"
-                + ", venCantidad=" + detCantidad + "\n"
-                + ", venTotal=" + detTotal + "\n"
+                + ", detCantidad=" + detCantidad + "\n"
+                + ", detTotal=" + detTotal + "\n"
                 + '}';
     }
 

@@ -9,6 +9,5 @@ public interface crudVenta {
 
     venta getById(Integer id);
 
-    String add(venta venta);
 
 }

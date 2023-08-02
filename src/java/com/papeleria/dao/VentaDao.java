@@ -2,6 +2,7 @@ package com.papeleria.dao;
 
 import com.papeleria.database.Conexion;
 import com.papeleria.interfaces.crudVenta;
+import com.papeleria.model.detalle;
 import com.papeleria.model.venta;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -86,15 +87,18 @@ public class VentaDao implements crudVenta {
         return numero;
     }
 
-    @Override
-    public String add(venta ven) {
+    public String saveSale(venta ven, detalle detalle) {
         try {
             con = (Connection) cn.getConexion();
-            cs = con.prepareCall(add);
+            cs = con.prepareCall("call saveSale(?,?,?,?,?,?,?,?)");
             cs.setInt(1, ven.getFkCliente());
             cs.setString(2, ven.getVenCodigo());
             cs.setString(3, ven.getVenFecha());
             cs.setDouble(4, ven.getDetTotal());
+            cs.setInt(5, detalle.getFkVenta());
+            cs.setInt(6, detalle.getFkProducto());
+            cs.setInt(7, detalle.getDetCantidad());
+            cs.setDouble(8, detalle.getDetTotal());
             cs.executeQuery();
         } catch (SQLException ex) {
             System.out.println("Error al crear: " + ex.getMessage());
