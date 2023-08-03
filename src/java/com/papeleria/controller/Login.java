@@ -67,14 +67,21 @@ public class Login extends HttpServlet {
             } else {
                 // Incrementar el contador de intentos fallidos
                 usu = new usuario(idUsuario, usuUsuario, usuClaveBd, usuIntento + 1);
-                usuDao.updateById(usu);
+
+                int intentosRestantes = MAX_INTENTOS - usuIntento - 1; // Cálculo de intentos restantes
 
                 if (usuIntento >= MAX_INTENTOS) {
-                    request.setAttribute("errorSesion", "LIMITES DE INTENTOS EXCEDIDOS," + "\n" + " USUARIO BLOQUEADO!!");
+                    request.setAttribute("errorSesion", "LÍMITE DE INTENTOS EXCEDIDO," + "\n" + "USUARIO BLOQUEADO!!");
                 } else {
-                    request.setAttribute("errorSesion", "CLAVE INCORRECTA!!" + "\n" + " Intento " + (usuIntento + 1) + " de " + MAX_INTENTOS);
-                }
+                    if (intentosRestantes == 0) {
+                        request.setAttribute("errorSesion", "CLAVE INCORRECTA!!" + "\n" + "USUARIO BLOQUEADO!!");
+                        usu = new usuario(idUsuario, usuUsuario, usuClaveBd, 0);
 
+                    } else {
+                        request.setAttribute("errorSesion", "CLAVE INCORRECTA!!" + "\n" + "Intentos restantes: " + intentosRestantes);
+                    }
+                }
+                usuDao.updateById(usu);
                 request.getRequestDispatcher(LOGIN).forward(request, response);
             }
         }
